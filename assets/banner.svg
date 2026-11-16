@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040711"/>
+      <stop offset="50%" stop-color="#081026"/>
+      <stop offset="100%" stop-color="#02040a"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#7000ff"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#bgGrad)"/>
+
+  <!-- Cyber Grid -->
+  <g opacity="0.12" stroke="#00f0ff" stroke-width="1">
+    <line x1="0" y1="50" x2="1200" y2="50"/>
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="150" x2="1200" y2="150"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="250" x2="1200" y2="250"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="350" x2="1200" y2="350"/>
+    
+    <line x1="100" y1="0" x2="100" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/>
+    <line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="500" y1="0" x2="500" y2="400"/>
+    <line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="700" y1="0" x2="700" y2="400"/>
+    <line x1="800" y1="0" x2="800" y2="400"/>
+    <line x1="900" y1="0" x2="900" y2="400"/>
+    <line x1="1000" y1="0" x2="1000" y2="400"/>
+    <line x1="1100" y1="0" x2="1100" y2="400"/>
+  </g>
+
+  <!-- HUD Corner Accents -->
+  <path d="M 40 70 L 40 40 L 70 40" fill="none" stroke="#00f0ff" stroke-width="3"/>
+  <path d="M 1160 70 L 1160 40 L 1130 40" fill="none" stroke="#00f0ff" stroke-width="3"/>
+  <path d="M 40 330 L 40 360 L 70 360" fill="none" stroke="#00f0ff" stroke-width="3"/>
+  <path d="M 1160 330 L 1160 360 L 1130 360" fill="none" stroke="#00f0ff" stroke-width="3"/>
+
+  <!-- Radar Shield Graphic -->
+  <g transform="translate(180, 200)">
+    <circle r="90" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.3"/>
+    <circle r="60" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.5"/>
+    <circle r="30" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.8"/>
+    <!-- Crosshairs -->
+    <line x1="-100" y1="0" x2="100" y2="0" stroke="#00f0ff" stroke-width="1" opacity="0.4"/>
+    <line x1="0" y1="-100" x2="0" y2="100" stroke="#00f0ff" stroke-width="1" opacity="0.4"/>
+    <!-- Shield Path -->
+    <path d="M 0 -45 L 35 -20 L 35 20 L 0 50 L -35 20 L -35 -20 Z" fill="rgba(0, 240, 255, 0.15)" stroke="#00f0ff" stroke-width="3" filter="url(#glow)"/>
+    <!-- Core Lock -->
+    <circle r="8" fill="#ff0055" filter="url(#glow)"/>
+  </g>
+
+  <!-- Typography -->
+  <text x="340" y="145" font-family="'Segoe UI', -apple-system, sans-serif" font-weight="900" font-size="54" fill="url(#cyanGrad)" letter-spacing="4" filter="url(#glow)">
+    PHANTOMGUARD
+  </text>
+  
+  <text x="345" y="190" font-family="'Courier New', monospace" font-weight="700" font-size="16" fill="#00f0ff" letter-spacing="5">
+    // CYBERNETIC DEFENSE SENTINEL V1.0
+  </text>
+
+  <text x="345" y="240" font-family="'Segoe UI', -apple-system, sans-serif" font-weight="400" font-size="20" fill="#a5b9d8">
+    Real-time prevention of AI-hallucinated and phantom packages in JavaScript, TypeScript &amp; Python.
+  </text>
+  <text x="345" y="270" font-family="'Segoe UI', -apple-system, sans-serif" font-weight="400" font-size="16" fill="#607b9e">
+    Neutralize supply-chain attacks &amp; typosquatting vectors before execution.
+  </text>
+
+  <!-- Telemetry Tags -->
+  <g transform="translate(345, 305)">
+    <rect width="130" height="28" rx="4" fill="rgba(0, 240, 255, 0.1)" stroke="#00f0ff" stroke-width="1"/>
+    <text x="65" y="18" font-family="monospace" font-size="11" fill="#00f0ff" font-weight="700" text-anchor="middle">NPM REGISTRY</text>
+  </g>
+  <g transform="translate(490, 305)">
+    <rect width="120" height="28" rx="4" fill="rgba(56, 189, 248, 0.1)" stroke="#38bdf8" stroke-width="1"/>
+    <text x="60" y="18" font-family="monospace" font-size="11" fill="#38bdf8" font-weight="700" text-anchor="middle">PYPI REGISTRY</text>
+  </g>
+  <g transform="translate(625, 305)">
+    <rect width="180" height="28" rx="4" fill="rgba(255, 0, 85, 0.15)" stroke="#ff0055" stroke-width="1"/>
+    <text x="90" y="18" font-family="monospace" font-size="11" fill="#ff0055" font-weight="700" text-anchor="middle">AI HALLUCINATION DEFENSE</text>
+  </g>
+</svg>

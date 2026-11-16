@@ -1,0 +1,130 @@
+{
+  "name": "phantom-guard",
+  "displayName": "PhantomGuard // AI Hallucinated Package Sentinel",
+  "description": "Real-time cybernetic defense against AI-hallucinated and phantom packages in JavaScript, TypeScript & Python. Stop supply-chain vectors before they strike.",
+  "version": "0.1.0",
+  "publisher": "gitwithmasum",
+  "author": {
+    "name": "Masum Billah",
+    "email": "sciencefiction844@gmail.com",
+    "url": "https://github.com/gitwithmasum"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gitwithmasum/PhantomGuard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gitwithmasum/PhantomGuard/issues"
+  },
+  "homepage": "https://github.com/gitwithmasum/PhantomGuard#readme",
+  "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#070b19",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "hallucination",
+    "phantom",
+    "security",
+    "npm",
+    "pypi",
+    "cyberpunk",
+    "copilot",
+    "chatgpt",
+    "supply chain"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact",
+    "onLanguage:python"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "phantomguard.scanCurrentFile",
+        "title": "PhantomGuard: Scan Current File for Phantoms",
+        "category": "PhantomGuard",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "phantomguard.scanWorkspace",
+        "title": "PhantomGuard: Deep Scan Workspace for Hallucinations",
+        "category": "PhantomGuard",
+        "icon": "$(search)"
+      },
+      {
+        "command": "phantomguard.openDashboard",
+        "title": "PhantomGuard: Open Cybernetic Radar Dashboard",
+        "category": "PhantomGuard",
+        "icon": "$(dashboard)"
+      },
+      {
+        "command": "phantomguard.clearCache",
+        "title": "PhantomGuard: Purge Local Registry Cache",
+        "category": "PhantomGuard",
+        "icon": "$(trash)"
+      }
+    ],
+    "configuration": {
+      "title": "PhantomGuard",
+      "properties": {
+        "phantomguard.enableNpm": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable real-time npm package verification for JS/TS."
+        },
+        "phantomguard.enablePypi": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable real-time PyPI package verification for Python."
+        },
+        "phantomguard.strictMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Treat packages with less than 1,000 weekly downloads as potential typosquat/suspicious risks."
+        },
+        "phantomguard.whitelist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "List of internal, private, or trusted package names to ignore."
+        },
+        "phantomguard.soundAlert": {
+          "type": "boolean",
+          "default": false,
+          "description": "Play a futuristic cyber alert sound when a phantom package is discovered."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "node tests/parser.test.js",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "build:dev": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --sourcemap",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.3.3"
+  }
+}
