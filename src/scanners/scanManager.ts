@@ -15,15 +15,21 @@ export class ScanManager {
    * Scan a document and return all imports with their verification status.
    */
   public static async scanDocument(document: vscode.TextDocument): Promise<VerifiedImport[]> {
+    const isDepFile =
+      document.fileName.endsWith('package.json') ||
+      document.fileName.endsWith('requirements.txt');
+
     const supportedLanguages = [
       'javascript',
       'javascriptreact',
       'typescript',
       'typescriptreact',
-      'python'
+      'python',
+      'json',
+      'pip-requirements'
     ];
 
-    if (!supportedLanguages.includes(document.languageId)) {
+    if (!isDepFile && !supportedLanguages.includes(document.languageId)) {
       return [];
     }
 
@@ -33,7 +39,7 @@ export class ScanManager {
     const strictMode = config.get<boolean>('strictMode', false);
 
     const text = document.getText();
-    const imports = ImportParser.parse(text, document.languageId);
+    const imports = ImportParser.parse(text, document.languageId, document.fileName);
     const verifiedResults: VerifiedImport[] = [];
 
     // Filter candidate packages to check

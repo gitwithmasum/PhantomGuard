@@ -49,7 +49,9 @@
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
     "onLanguage:typescriptreact",
-    "onLanguage:python"
+    "onLanguage:python",
+    "onLanguage:json",
+    "onLanguage:pip-requirements"
   ],
   "contributes": {
     "commands": [
@@ -91,6 +93,11 @@
           "default": true,
           "description": "Enable real-time PyPI package verification for Python."
         },
+        "phantomguard.enableInlayHints": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show subtle inline status hints at the end of import lines (e.g. ✓ verified • 25M/wk or 🚨 PHANTOM)."
+        },
         "phantomguard.strictMode": {
           "type": "boolean",
           "default": false,
@@ -124,6 +131,7 @@
   "devDependencies": {
     "@types/node": "^20.11.0",
     "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^4.1.1",
     "esbuild": "^0.20.0",
     "typescript": "^5.3.3"
   }

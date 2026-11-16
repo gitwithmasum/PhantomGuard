@@ -23,12 +23,32 @@ export class FuturisticCodeActionProvider implements vscode.CodeActionProvider {
       const lineText = document.lineAt(diag.range.start.line).text;
       const targetPackage = document.getText(diag.range).replace(/['"]/g, '').trim();
 
+      // Check if we have a fuzzy suggestion from cache
+      const cachedNpm = PackageCache.get('npm', targetPackage);
+      const cachedPypi = PackageCache.get('pypi', targetPackage);
+      const suggestion = cachedNpm?.suggestedAlternative || cachedPypi?.suggestedAlternative;
+
+      if (suggestion) {
+        const replaceAction = new vscode.CodeAction(
+          `💡 [PhantomGuard] Replace with "${suggestion}" (Did you mean?)`,
+          vscode.CodeActionKind.QuickFix
+        );
+        replaceAction.isPreferred = true;
+        replaceAction.diagnostics = [diag];
+        const replaceEdit = new vscode.WorkspaceEdit();
+        replaceEdit.replace(document.uri, diag.range, suggestion);
+        replaceAction.edit = replaceEdit;
+        actions.push(replaceAction);
+      }
+
       // Action 1: Remove the phantom import line
       const removeAction = new vscode.CodeAction(
         `🛡️ [PhantomGuard] Neutralize: Remove hallucinated import`,
         vscode.CodeActionKind.QuickFix
       );
-      removeAction.isPreferred = true;
+      if (!suggestion) {
+        removeAction.isPreferred = true;
+      }
       removeAction.diagnostics = [diag];
       const edit = new vscode.WorkspaceEdit();
       edit.delete(document.uri, document.lineAt(diag.range.start.line).rangeIncludingLineBreak);

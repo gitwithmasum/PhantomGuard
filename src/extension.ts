@@ -3,6 +3,7 @@ import { ScanManager } from './scanners/scanManager';
 import { DiagnosticsProvider } from './diagnostics/diagnosticsProvider';
 import { FuturisticHoverProvider } from './providers/hoverProvider';
 import { FuturisticCodeActionProvider } from './providers/codeActionProvider';
+import { FuturisticInlayHintsProvider } from './providers/inlayHintsProvider';
 import { StatusBarManager } from './statusBar/statusBar';
 import { DashboardWebview } from './views/dashboardWebview';
 import { PackageCache } from './cache/packageCache';
@@ -18,13 +19,16 @@ export function activate(context: vscode.ExtensionContext) {
   const statusBar = new StatusBarManager();
   const hoverProvider = new FuturisticHoverProvider();
   const codeActionProvider = new FuturisticCodeActionProvider();
+  const inlayHintsProvider = new FuturisticInlayHintsProvider();
 
   const supportedLanguages = [
     'javascript',
     'javascriptreact',
     'typescript',
     'typescriptreact',
-    'python'
+    'python',
+    'json',
+    'pip-requirements'
   ];
 
   // Register hover provider
@@ -32,6 +36,14 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.languages.registerHoverProvider(
       supportedLanguages.map((lang) => ({ language: lang })),
       hoverProvider
+    )
+  );
+
+  // Register inlay hints provider
+  context.subscriptions.push(
+    vscode.languages.registerInlayHintsProvider(
+      supportedLanguages.map((lang) => ({ language: lang })),
+      inlayHintsProvider
     )
   );
 
@@ -50,7 +62,11 @@ export function activate(context: vscode.ExtensionContext) {
   let debounceTimer: NodeJS.Timeout | undefined;
 
   async function triggerScan(document: vscode.TextDocument) {
-    if (!supportedLanguages.includes(document.languageId)) {
+    const isDepFile =
+      document.fileName.endsWith('package.json') ||
+      document.fileName.endsWith('requirements.txt');
+
+    if (!isDepFile && !supportedLanguages.includes(document.languageId)) {
       return;
     }
 

@@ -1,0 +1,9 @@
+.vscode/**
+.github/**
+src/**
+out/**
+tests/**
+scripts/**
+tsconfig.json
+.gitkeep
+*.vsix

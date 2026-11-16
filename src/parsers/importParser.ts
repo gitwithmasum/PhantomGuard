@@ -1,15 +1,29 @@
 import { ExtractedImport, PackageEcosystem } from '../types';
 import { NODE_BUILTINS, PYTHON_BUILTINS } from '../constants/builtins';
+import { DependencyFileParser } from './dependencyFileParser';
 
 export class ImportParser {
   /**
-   * Parse imports from a document given its text and language ID.
+   * Parse imports or dependencies from a document.
    */
-  public static parse(text: string, languageId: string): ExtractedImport[] {
+  public static parse(text: string, languageId: string, fileName: string = ''): ExtractedImport[] {
+    // 1. Check if package.json
+    if (fileName.endsWith('package.json') || (languageId === 'json' && text.includes('"dependencies"'))) {
+      return DependencyFileParser.parsePackageJson(text);
+    }
+
+    // 2. Check if requirements.txt
+    if (fileName.endsWith('requirements.txt') || languageId === 'pip-requirements') {
+      return DependencyFileParser.parseRequirementsTxt(text);
+    }
+
+    // 3. Python code
     const isPython = languageId === 'python';
     if (isPython) {
       return this.parsePython(text);
     }
+
+    // 4. JS/TS code
     return this.parseJavaScriptTypeScript(text);
   }
 

@@ -14,6 +14,7 @@ export interface PackageMetadata {
   isDeprecated?: boolean;
   author?: string;
   homepage?: string;
+  suggestedAlternative?: string;
   verifiedAt: number;
 }
 

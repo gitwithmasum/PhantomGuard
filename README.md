@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/banner.svg" alt="PhantomGuard Banner" width="100%" />
+<img src="./assets/banner.png" alt="PhantomGuard Banner" width="100%" />
 
 # 🛡️ PhantomGuard
 ### *Real-Time Cybernetic Defense Against AI-Hallucinated & Phantom Packages*

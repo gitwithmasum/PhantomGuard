@@ -1,4 +1,5 @@
 import { PackageMetadata } from '../types';
+import { FuzzySearch } from '../utils/fuzzySearch';
 
 export class NpmClient {
   private static readonly REGISTRY_BASE = 'https://registry.npmjs.org';
@@ -26,11 +27,15 @@ export class NpmClient {
       });
 
       if (response.status === 404) {
+        // Search for fuzzy suggestion
+        const suggestedAlternative = await FuzzySearch.findNpmSuggestion(cleanName);
+
         return {
           name: cleanName,
           ecosystem: 'npm',
           exists: false,
           status: 'phantom',
+          suggestedAlternative,
           verifiedAt: Date.now()
         };
       }

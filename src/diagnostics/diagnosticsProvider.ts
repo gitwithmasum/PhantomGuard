@@ -21,7 +21,10 @@ export class DiagnosticsProvider {
         );
 
         const registryName = extracted.ecosystem === 'npm' ? 'registry.npmjs.org' : 'pypi.org';
-        const message = `[PHANTOMGUARD // THREAT DETECTED] Package "${extracted.packageName}" was NOT found on ${registryName}. High probability of AI hallucination or phantom supply-chain vector!`;
+        let message = `[PHANTOMGUARD // THREAT DETECTED] Package "${extracted.packageName}" was NOT found on ${registryName}. High probability of AI hallucination or phantom supply-chain vector!`;
+        if (metadata.suggestedAlternative) {
+          message += ` Did you mean "${metadata.suggestedAlternative}"?`;
+        }
 
         const diagnostic = new vscode.Diagnostic(range, message, vscode.DiagnosticSeverity.Error);
         diagnostic.source = 'PhantomGuard';
